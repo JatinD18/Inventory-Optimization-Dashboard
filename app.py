@@ -24,7 +24,7 @@ df = load_data()
 # 2. APP UI SETUP
 # ==========================================
 st.set_page_config(page_title="Inventory Optimizer", layout="wide")
-st.title("AI-Driven Inventory Optimization & Demand Forecasting 📦")
+st.title("AI-Driven Inventory Optimization & Demand Forecasting")
 st.markdown("Select a store and item below to view the 30-day demand forecast and automated reorder recommendations.")
 
 # Sidebar for user inputs
