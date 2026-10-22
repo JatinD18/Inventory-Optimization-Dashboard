@@ -224,6 +224,7 @@ The app opens at `http://localhost:8501`.
 ## 👤 Author
 
 **Jatin Naresh Dolas**
+
 Data Analyst | SQL · Python · Power BI · Streamlit
 
 [![GitHub](https://img.shields.io/badge/GitHub-JatinD18-181717?logo=github&logoColor=white)](https://github.com/JatinD18) | [![LinkedIn](https://img.shields.io/badge/LinkedIn-Jatin%20Dolas-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jatin-dolas)
