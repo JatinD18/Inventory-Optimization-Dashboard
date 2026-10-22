@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,16 +6,38 @@ import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
 from scipy.stats import norm
 import warnings
-
 warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8-whitegrid')
 
 # ==========================================
 # 1. LOAD AND PREPARE DATA (Cached for speed)
 # ==========================================
+DATA_FILENAME = 'Inventory_Forecasting_Project.csv'
+
+def _resolve_data_path():
+    # 1) Look in the same folder as app.py (works locally AND on Streamlit Cloud)
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    candidate = os.path.join(base_dir, DATA_FILENAME)
+    if os.path.exists(candidate):
+        return candidate
+
+    # 2) Fallback: try the current working directory
+    if os.path.exists(DATA_FILENAME):
+        return os.path.abspath(DATA_FILENAME)
+
+    # 3) Last resort: search the repo tree for the file
+    for root, _dirs, files in os.walk(base_dir):
+        if DATA_FILENAME in files:
+            return os.path.join(root, DATA_FILENAME)
+
+    raise FileNotFoundError(
+        f"'{DATA_FILENAME}' not found. Searched near: {base_dir}. "
+        f"Make sure the file is committed to GitHub and not listed in .gitignore."
+    )
+
 @st.cache_data
 def load_data():
-    df = pd.read_csv('train.csv')
+    df = pd.read_csv(_resolve_data_path())
     df['date'] = pd.to_datetime(df['date'])
     return df
 
@@ -24,7 +47,7 @@ df = load_data()
 # 2. APP UI SETUP
 # ==========================================
 st.set_page_config(page_title="Inventory Optimizer", layout="wide")
-st.title("AI-Driven Inventory Optimization & Demand Forecasting")
+st.title("AI-Driven Inventory Optimization & Demand Forecasting 📦")
 st.markdown("Select a store and item below to view the 30-day demand forecast and automated reorder recommendations.")
 
 # Sidebar for user inputs
